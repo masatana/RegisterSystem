@@ -3,26 +3,25 @@
 <body>
 <?php
 require_once "definition.php";
+$member = new Member($_POST['input_name_uji'], $_POST['input_name_na'], $_POST['input_name_uji_yomi'], $_POST['input_name_na_yomi'],
+    $_POST['input_mail_address'], $_POST['input_birth_year'], $_POST['input_birth_month'],
+    $_POST['input_birth_day'], $_POST['input_blood_type'], $_POST['input_course_name'], $_POST['input_special_report']);
 
-$member = new Member($_POST[NAME_UJI], $_POST[NAME_NA], $_POST[NAME_UJI_YOMI], $_POST[NAME_NA_YOMI],
-    $_POST[MAIL_ADDRESS], $_POST[BIRTH_YEAR], $_POST[BIRTH_MONTH],
-    $_POST[BIRTH_DAY], $_POST[BLOOD_TYPE], $_POST[COURSE_NAME], $_POST[SPECIAL_REPORT]);
-
-$isValidInputs = array(NAME_UJI=>TRUE, NAME_NA=>TRUE, NAME_UJI_YOMI=>TRUE,
-    NAME_NA_YOMI=>TRUE, MAIL_ADDRESS=>TRUE, BIRTH=>TRUE, BLOOD_TYPE=>TRUE, COURSE_NAME=>TRUE
+$isValidInputs = array('input_name_uji'=>TRUE, 'input_name_na'=>TRUE, 'input_name_uji_yomi'=>TRUE,
+    'input_name_na_yomi'=>TRUE, 'input_mail_address'=>TRUE, "BIRTH"=>TRUE, 'input_blood_type'=>TRUE, 'input_course_name'=>TRUE
 );
 $canGoNextPage = $member->isValidInput();
-$_SESSION[NAME_UJI] = $_POST[NAME_UJI];
-$_SESSION[NAME_NA] = $_POST[NAME_NA];
-$_SESSION[NAME_UJI_YOMI] = $_POST[NAME_UJI_YOMI];
-$_SESSION[NAME_NA_YOMI] = $_POST[NAME_NA_YOMI];
-$_SESSION[MAIL_ADDRESS] = $_POST[MAIL_ADDRESS];
-$_SESSION[BIRTH_YEAR] = $_POST[BIRTH_YEAR];
-$_SESSION[BIRTH_MONTH] = $_POST[BIRTH_MONTH];
-$_SESSION[BIRTH_DAY] = $_POST[BIRTH_DAY];
-$_SESSION[BLOOD_TYPE] = $_POST[BLOOD_TYPE];
-$_SESSION[COURSE_NAME] = $_POST[COURSE_NAME];
-$_SESSION[SPECIAL_REPORT] = $_POST[SPECIAL_REPORT];
+$_SESSION['input_name_uji'] = $_POST['input_name_uji'];
+$_SESSION['input_name_na'] = $_POST['input_name_na'];
+$_SESSION['input_name_uji_yomi'] = $_POST['input_name_uji_yomi'];
+$_SESSION['input_name_na_yomi'] = $_POST['input_name_na_yomi'];
+$_SESSION['input_mail_address'] = $_POST['input_mail_address'];
+$_SESSION['input_birth_year'] = $_POST['input_birth_year'];
+$_SESSION['input_birth_month'] = $_POST['input_birth_month'];
+$_SESSION['input_birth_day'] = $_POST['input_birth_day'];
+$_SESSION['input_blood_type'] = $_POST['input_blood_type'];
+$_SESSION['input_course_name'] = $_POST['input_course_name'];
+$_SESSION['input_special_report'] = $_POST['input_special_report'];
 
 /*
 function checkValidInput ($sPost) {
@@ -33,16 +32,16 @@ function checkValidInput ($sPost) {
     return $isValidInput;
 }
 
-$isValidInputs[NAME_UJI] = checkValidInput($_POST[NAME_UJI]);
-$isValidInputs[NAME_NA] = checkValidInput($_POST[NAME_NA]);
-$isValidInputs[NAME_UJI_YOMI] = checkValidInput($_POST[NAME_UJI_YOMI]);
-$isValidInputs[NAME_NA_YOMI] = checkValidInput($_POST[NAME_NA_YOMI]);
-$isValidInputs[MAIL_ADDRESS] = checkValidInput($_POST[MAIL_ADDRESS]);
+$isValidInputs['input_name_uji'] = checkValidInput($_POST['input_name_uji']);
+$isValidInputs['input_name_na'] = checkValidInput($_POST['input_name_na']);
+$isValidInputs['input_name_uji_yomi'] = checkValidInput($_POST['input_name_uji_yomi']);
+$isValidInputs['input_name_na_yomi'] = checkValidInput($_POST['input_name_na_yomi']);
+$isValidInputs['input_mail_address'] = checkValidInput($_POST['input_mail_address']);
 $isValidInputs[BIRTH] = checkValidInput($_POST[BIRTH]);
 $isValidInputs[AGE] = checkValidInput($_POST[AGE]);
-$isValidInputs[BLOOD_TYPE] = checkValidInput($_POST[BLOOD_TYPE]);
-$isValidInputs[COURSE_NAME] = checkValidInput($_POST[COURSE_NAME]);
-$isValidInputs[SPECIAL_REPORT] = checkValidInput($_POST[SPECIAL_REPORT]);
+$isValidInputs['input_blood_type'] = checkValidInput($_POST['input_blood_type']);
+$isValidInputs['input_course_name'] = checkValidInput($_POST['input_course_name']);
+$isValidInputs['input_special_report'] = checkValidInput($_POST['input_special_report']);
 
 foreach($isValidInputs as $inputValue) {
     if (!$inputValue) {
@@ -51,18 +50,22 @@ foreach($isValidInputs as $inputValue) {
 }
 */
 
-if ($canGoNextPage) {
+if ($canGoNextPage == array()) {
     echo "会員管理登録確認";
     echo "<a href='index.html'>トップへ戻る</a><br />";
     echo "<table border='1'><tr>";
 
     echo "<td>氏名</td>";
-    $output_name = htmlspecialchars($member->name_uji, ENT_QUOTES).htmlspecialchars($member->name_na, ENT_QUOTES);
+    //$output_name = htmlspecialchars($_POST['input_name_uji'], ENT_QUOTES).htmlspecialchars($member->name_na, ENT_QUOTES);
+    // TODO 苦肉の策。なぜか2バイト文字をhtmlspecialchars()に通すと消える
+    $output_name = $member->name_uji.$member->name_na;
     echo "<td>$output_name</td>";
     echo "</tr><tr>";
 
     echo "<td>フリガナ</td>";
-    $output_name_yomi = htmlspecialchars($member->name_uji_yomi, ENT_QUOTES).htmlspecialchars($member->name_na_yomi, ENT_QUOTES);
+    // $output_name_yomi = htmlspecialchars($member->name_uji_yomi, ENT_QUOTES).htmlspecialchars($member->name_na_yomi, ENT_QUOTES);
+    // TODO 氏名の場合と同様
+    $output_name_yomi = $member->name_uji_yomi.$member->name_na_yomi;
     echo "<td>$output_name_yomi</td>";
     echo "</tr><tr>";
 
@@ -72,7 +75,7 @@ if ($canGoNextPage) {
     echo "</tr><tr>";
 
     echo "<td>生年月日</td>";
-    // TODO 取り敢えず適当に
+    // TODO 取りあえず適当に
     $output_birth = htmlspecialchars($member->birth_year).htmlspecialchars($member->birth_month).htmlspecialchars($member->birth_day);
     echo "<td>$output_birth</td>";
     echo "</tr><tr>";
@@ -83,19 +86,26 @@ if ($canGoNextPage) {
     echo "</tr><tr>";
 
     echo "<td>希望コース</td>";
-    // TODO 取り敢えずシカト、多分foreachかなんかでarrayを回す
+    // TODO 取りあえず適当に
     $output_course = implode($member->course_name);
     echo "<td>$output_course</td>";
     echo "</tr><tr>";
 
     echo "<td>特記事項</td>";
-    $output_special_report = htmlspecialchars($member->special_report, ENT_QUOTES);
+    // $output_special_report = htmlspecialchars($member->special_report, ENT_QUOTES);
+    // TODO 氏名の場合と同様
+    $output_special_report = $member->special_report;
     echo "<td>$output_special_report</td>";
     echo "</tr><tr>";
 
     echo '<td><input type="button" onclick="location.href=\'regist.php\'" value="確認"></input></td>';
     echo '<td><input type="button" onclick="location.href=\'input.php\'" value="戻る"></input></td>';
     echo "</tr></table>";
+} else {
+	echo "error";
+	echo "<a href='input.php'>戻る</a>";
+	$_SESSION["invalid"] = $canGoNextPage;
+	echo implode($canGoNextPage);
 }
 ?>
 </body>

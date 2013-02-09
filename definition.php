@@ -41,26 +41,20 @@ class Member {
         }
     }
     function isValidInput() {
-        // TODO めんどい。後で作る
-        return TRUE;
+        // TODO めんどい
+    	mb_regex_encoding("SJIS");
+        $invalid_list = array();
+        if (preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $this->mail_adress)) $invalid_list[] = "mail_address";
+        if (!mb_ereg("^[ア-ン゛゜ァ-ォャ-ョー「」、]+$", $this->name_uji_yomi)) $invalid_list[] = "name_yomi";
+        if (!mb_ereg("^[ア-ン゛゜ァ-ォャ-ョー「」、]+$", $this->name_na_yomi)) $invalid_list[] = "name_yomi";
+        if ($this->name_uji === "") $invalid_list[] = "name";
+        if ($this->name_na === "") $invalid_list[] = "name";
+        if ($this->course_name == array()) $invalid_list[] = "course";
+        return $invalid_list;
     }
     function getAge() {
-        // めんどい。あとで作る
+        // めんどい
         return 30;
     }
 }
-define("ID", "input_id");
-define("NO", "input_no");
-define("NAME_UJI", "input_name_uji");
-define("NAME_NA", "input_name_na");
-define("NAME_UJI_YOMI", "input_name_uji_yomi");
-define("NAME_NA_YOMI", "input_name_na_yomi");
-define("MAIL_ADDRESS", "input_mail_address");
-define("BIRTH_YEAR", "input_birth_year");
-define("BIRTH_MONTH", "input_birth_month");
-define("BIRTH_DAY", "input_birth_day");
-define("AGE", "input_age");
-define("BLOOD_TYPE", "input_blood_type");
-define("COURSE_NAME", "input_course_name");
-define("SPECIAL_REPORT", "input_special_report");
 ?>
