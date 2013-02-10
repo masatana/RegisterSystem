@@ -3,13 +3,12 @@
 <body>
 <?php
 require_once "definition.php";
-$member = new Member($_POST['input_name_uji'], $_POST['input_name_na'], $_POST['input_name_uji_yomi'], $_POST['input_name_na_yomi'],
+$member = new Member($_POST['input_name_uji'], $_POST['input_name_na'],
+    $_POST['input_name_uji_yomi'], $_POST['input_name_na_yomi'],
     $_POST['input_mail_address'], $_POST['input_birth_year'], $_POST['input_birth_month'],
-    $_POST['input_birth_day'], $_POST['input_blood_type'], $_POST['input_course_name'], $_POST['input_special_report']);
+    $_POST['input_birth_day'], $_POST['input_blood_type'], $_POST['input_course_name'],
+    $_POST['input_special_report']);
 
-$isValidInputs = array('input_name_uji'=>TRUE, 'input_name_na'=>TRUE, 'input_name_uji_yomi'=>TRUE,
-    'input_name_na_yomi'=>TRUE, 'input_mail_address'=>TRUE, "BIRTH"=>TRUE, 'input_blood_type'=>TRUE, 'input_course_name'=>TRUE
-);
 $canGoNextPage = $member->isValidInput();
 $_SESSION['input_name_uji'] = $_POST['input_name_uji'];
 $_SESSION['input_name_na'] = $_POST['input_name_na'];
@@ -23,36 +22,9 @@ $_SESSION['input_blood_type'] = $_POST['input_blood_type'];
 $_SESSION['input_course_name'] = $_POST['input_course_name'];
 $_SESSION['input_special_report'] = $_POST['input_special_report'];
 
-/*
-function checkValidInput ($sPost) {
-    $isValidInput = TRUE;
-    if(!isset($sPost) || $sPost == "") {
-        $isValidInput = FALSE;
-    }
-    return $isValidInput;
-}
-
-$isValidInputs['input_name_uji'] = checkValidInput($_POST['input_name_uji']);
-$isValidInputs['input_name_na'] = checkValidInput($_POST['input_name_na']);
-$isValidInputs['input_name_uji_yomi'] = checkValidInput($_POST['input_name_uji_yomi']);
-$isValidInputs['input_name_na_yomi'] = checkValidInput($_POST['input_name_na_yomi']);
-$isValidInputs['input_mail_address'] = checkValidInput($_POST['input_mail_address']);
-$isValidInputs[BIRTH] = checkValidInput($_POST[BIRTH]);
-$isValidInputs[AGE] = checkValidInput($_POST[AGE]);
-$isValidInputs['input_blood_type'] = checkValidInput($_POST['input_blood_type']);
-$isValidInputs['input_course_name'] = checkValidInput($_POST['input_course_name']);
-$isValidInputs['input_special_report'] = checkValidInput($_POST['input_special_report']);
-
-foreach($isValidInputs as $inputValue) {
-    if (!$inputValue) {
-        $canGoNextPage = FALSE;
-    }
-}
-*/
-
-if ($canGoNextPage == array()) {
+if ($canGoNextPage == array()) { // errorがない場合
     echo "会員管理登録確認";
-    echo "<a href='index.html'>トップへ戻る</a><br />";
+    echo "<a href='index.php'>トップへ戻る</a><br />";
     echo "<table border='1'><tr>";
 
     echo "<td>氏名</td>";
@@ -87,7 +59,10 @@ if ($canGoNextPage == array()) {
 
     echo "<td>希望コース</td>";
     // TODO 取りあえず適当に
-    $output_course = implode($member->course_name);
+    $output_course = '';
+    for ($i = 0; $i < count($member->course_name); $i++) {
+        $output_course = $output_course . $JAPANESE_COURSE_NAME[$member->course_name[$i]];
+    }
     echo "<td>$output_course</td>";
     echo "</tr><tr>";
 

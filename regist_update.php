@@ -24,9 +24,10 @@ $result = mysql_select_db('test', $s);
 
 $sql_UPDATE =<<<EOS
 UPDATE `member_list`
-SET `name_uji`='{$sql_name_uji}', `name_na`='{$sql_name_na}', `name_uji_yomi`='{$sql_name_uji_yomi}', `name_na_yomi`='{$sql_name_na_yomi}',
-	`mail_address`='{$sql_mail_address}', `birth`='{$sql_birth}', `age`='{$sql_age}', `blood_type`='{$sql_blood_type}',
-	`course_name`='{$sql_course_name}', `course_charge`='{$sql_course_charge}', `special_report`='{$sql_special_report}'
+SET `name_uji`='{$sql_name_uji}', `name_na`='{$sql_name_na}', `name_uji_yomi`='{$sql_name_uji_yomi}',
+    `name_na_yomi`='{$sql_name_na_yomi}',
+    `mail_address`='{$sql_mail_address}', `birth`='{$sql_birth}', `age`='{$sql_age}', `blood_type`='{$sql_blood_type}',
+    `course_name`='{$sql_course_name}', `course_charge`='{$sql_course_charge}', `special_report`='{$sql_special_report}'
 WHERE `no`='{$sql_no}'
 EOS;
 
@@ -34,7 +35,7 @@ EOS;
 $table = mysql_query($sql_UPDATE, $s);
 
 echo "<p>登録完了</p>";
-echo "<a href='index.html'>トップへ戻る</a>";
+echo "<a href='index.php'>トップへ戻る</a>";
 mysql_close($s);
 session_destroy();
 ?>

@@ -17,7 +17,7 @@ $course_array = array();
 $special_report_text = "";
 
 
-echo '<div align="center"><p>会員管理システム</p><a href="./index.html">トップへ戻る</a></div>';
+echo '<div align="center"><p>会員管理システム</p><a href="./index.php">トップへ戻る</a></div>';
 // FIXME
 if (isset($_SESSION['input_name_uji'])) $name_uji_text = $_SESSION['input_name_uji'];
 if (isset($_SESSION['input_name_na'])) $name_na_text = $_SESSION['input_name_na'];
@@ -28,7 +28,8 @@ if (isset($_SESSION['input_birth_year'])) $birth_year_text = $_SESSION['input_bi
 if (isset($_SESSION['input_birth_month'])) $birth_month_text = $_SESSION['input_birth_month'];
 if (isset($_SESSION['input_birth_day'])) $birth_day_text = $_SESSION['input_birth_day'];
 if (isset($_SESSION['input_blood_type'])) $blood_type_text = $_SESSION['input_blood_type'];
-if (isset($_SESSION['input_course_name'])) $course_array = $_SESSION['input_course_name']; if (isset($_SESSION['input_special_report'])) $special_report_text = $_SESSION['input_special_report']; 
+if (isset($_SESSION['input_course_name'])) $course_array = $_SESSION['input_course_name'];
+if (isset($_SESSION['input_special_report'])) $special_report_text = $_SESSION['input_special_report']; 
 
 
 if (isset($_SESSION['invalid'])) echo implode($_SESSION['invalid']);
@@ -71,26 +72,20 @@ setRadioBloodType('input_blood_type', 'O', $blood_type_text);
 setRadioBloodType('input_blood_type', 'AB', $blood_type_text);
 echo '</td></tr><tr>';
 
-echo "<td>希望コース</td>";
-if (in_array("atami", $course_array)) $checked = "checked";
-echo "<td><input type='checkbox' name='input_course_name[]' value='atami' {$checked}>熱海温泉ツアー</input>";
-$checked = "";
-if (in_array("hokkaido", $course_array)) $checked = "checked";
-echo "<input type='checkbox' name='input_course_name[]' value='hokkaido' {$checked}>北海道回線ツアー</input>";
-$checked = "";
-if (in_array("shikoku", $course_array)) $checked = "checked";
-echo "<input type='checkbox' name='input_course_name[]' value='shikoku'>四国</input></td>";
-$checked = "";
-echo "</tr><tr>";
+echo '<td>希望コース</td><td>';
+setCheckboxCourseName('input_course_name[]', 'atami', $course_array, '熱海温泉ツアー');
+setCheckboxCourseName('input_course_name[]', 'hokkaido', $course_array, '北海道回線ツアー');
+setCheckboxCourseName('input_course_name[]', 'shikoku', $course_array, '四国');
+echo '</td></tr><tr>';
 
 echo "<td>特記事項</td>";
-echo "<td><textarea name='input_special_report' rows='30%' cols='100%' value='$special_report_text'></textarea></td>";
+echo "<td><textarea name='input_special_report' rows='30%' cols='100%' value='{$special_report_text}'></textarea></td>";
 echo "</tr><tr>";
 
 echo "<td><input type='submit' value='確認'></input></td>";
-echo "</tr></table>";
-?>
+echo '</tr></table>';
 
-</form>
-</body>
-</html>
+echo '</form>';
+echo '</body>';
+echo '</html>';
+?>

@@ -26,7 +26,7 @@ $_SESSION['input_special_report'] = $_POST['input_special_report'];
 
 if ($canGoNextPage) {
     echo "会員管理登録確認";
-    echo "<a href='index.html'>トップへ戻る</a><br />";
+    echo "<a href='index.php'>トップへ戻る</a><br />";
     echo "<table border='1'><tr>";
 
     echo "<td>氏名</td>";
