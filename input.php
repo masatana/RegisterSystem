@@ -15,6 +15,7 @@ $birth_day_text = "";
 $blood_type_text = 'A';
 $course_array = array();
 $special_report_text = "";
+$invalid_array = '';
 
 
 echo '<div align="center"><p>会員管理システム</p><a href="./index.php">トップへ戻る</a></div>';
@@ -32,37 +33,38 @@ if (isset($_SESSION['input_course_name'])) $course_array = $_SESSION['input_cour
 if (isset($_SESSION['input_special_report'])) $special_report_text = $_SESSION['input_special_report']; 
 
 
-if (isset($_SESSION['invalid'])) echo implode($_SESSION['invalid']);
-
-
-
+if (isset($_SESSION['invalid'])) $invalid_array = $_SESSION['invalid']; 
 
 echo '<table border="1"><tr>';
 
+echo '<td>氏名</td><td>';
 echo <<<EOShimei
-<td>氏名</td>
-<td><input type='text' name='input_name_uji' value='{$name_uji_text}'></input>
-<input type='text' name='input_name_na' value='{$name_na_text}'></input></td>
-</tr><tr>
+<input type='text' name='input_name_uji' value='{$name_uji_text}'></input>
+<input type='text' name='input_name_na' value='{$name_na_text}'></input>
 EOShimei;
+if (in_array('name', $invalid_array)) echo '氏名が間違っている可能性があります';
+echo '</td></tr><tr>';
 
+echo '<td>フリガナ</td><td>';
 echo <<<EOYomi
-<td>フリガナ</td>
-<td><input type='text' name='input_name_uji_yomi' value='{$name_uji_yomi_text}'></input>
-<input type='text' name='input_name_na_yomi' value='{$name_na_yomi_text}'></input></td>
-</tr><tr>
+<input type='text' name='input_name_uji_yomi' value='{$name_uji_yomi_text}'></input>
+<input type='text' name='input_name_na_yomi' value='{$name_na_yomi_text}'></input>
 EOYomi;
+if (in_array('name_yomi', $invalid_array)) echo '氏名が間違っている可能性があります';
+echo '</td></tr><tr>';
 
+echo '<td>メール</td><td>';
 echo <<<EOMail
-<td>メール</td>
-<td><input type='text' name='input_mail_address' value='{$mail_adress_text}'></input></td>
-</tr><tr>
+<input type='text' name='input_mail_address' value='{$mail_adress_text}'></input>
 EOMail;
+if (in_array('mail_address', $invalid_array)) echo '氏名が間違っている可能性があります';
+echo '</td></tr><tr>';
 
 echo '<td>生年月日</td><td>';
 setPulldownYear('input_birth_year', $birth_year_text);
 setPulldownMonth('input_birth_month', $birth_month_text);
 setPulldownDay('input_birth_day', $birth_day_text);
+if (in_array('birth', $invalid_array)) echo '氏名が間違っている可能性があります';
 echo '</td></tr><tr>';
 
 echo '<td>血液型</td><td>';
@@ -76,6 +78,7 @@ echo '<td>希望コース</td><td>';
 setCheckboxCourseName('input_course_name[]', 'atami', $course_array, '熱海温泉ツアー');
 setCheckboxCourseName('input_course_name[]', 'hokkaido', $course_array, '北海道回線ツアー');
 setCheckboxCourseName('input_course_name[]', 'shikoku', $course_array, '四国');
+if (in_array('course', $invalid_array)) echo '氏名が間違っている可能性があります';
 echo '</td></tr><tr>';
 
 echo "<td>特記事項</td>";

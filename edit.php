@@ -46,25 +46,25 @@ echo "<td>会員id</td>";
 echo "<td>$id</td>";
 echo "</tr><tr>";
 
+echo '<td>氏名</td><td>';
 echo <<<EOShimei
-<td>氏名</td>
-<td><input type='text' name='input_name_uji' value='{$name_uji_text}'></input>
-<input type='text' name='input_name_na' value='{$name_na_text}'></input></td>
-</tr><tr>
+<input type='text' name='input_name_uji' value='{$name_uji_text}'></input>
+<input type='text' name='input_name_na' value='{$name_na_text}'></input>
 EOShimei;
+echo '</td></tr><tr>';
 
+echo '<td>フリガナ</td><td>';
 echo <<<EOYomi
-<td>フリガナ</td>
-<td><input type='text' name='input_name_uji_yomi' value='{$name_uji_yomi_text}'></input>
-<input type='text' name='input_name_na_yomi' value='{$name_na_yomi_text}'></input></td>
-</tr><tr>
+<input type='text' name='input_name_uji_yomi' value='{$name_uji_yomi_text}'></input>
+<input type='text' name='input_name_na_yomi' value='{$name_na_yomi_text}'></input>
 EOYomi;
+echo '</td></tr><tr>';
 
+echo '<td>メール</td><td>';
 echo <<<EOMail
-<td>メール</td>
-<td><input type='text' name='input_mail_address' value='{$mail_adress_text}'></input></td>
-</tr><tr>
+<input type='text' name='input_mail_address' value='{$mail_adress_text}'></input>
 EOMail;
+echo '</td></tr><tr>';
 
 echo '<td>生年月日</td><td>';
 setPulldownYear('input_birth_year', $birth_year_text);
@@ -78,6 +78,8 @@ setRadioBloodType('input_blood_type', 'B', $blood_type_text);
 setRadioBloodType('input_blood_type', 'O', $blood_type_text);
 setRadioBloodType('input_blood_type', 'AB', $blood_type_text);
 echo '</td></tr><tr>';
+
+$course_array = explode(',', $course_text);
 
 echo '<td>希望コース</td><td>';
 setCheckboxCourseName('input_course_name[]', 'atami', $course_array, '熱海温泉ツアー');
