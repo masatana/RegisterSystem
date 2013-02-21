@@ -15,7 +15,7 @@ $birth_day_text = "";
 $blood_type_text = 'A';
 $course_array = array();
 $special_report_text = "";
-$invalid_array = '';
+$invalid_array = array();
 
 
 echo '<div align="center"><p>会員管理システム</p><a href="./index.php">トップへ戻る</a></div>';

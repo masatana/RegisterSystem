@@ -1,8 +1,8 @@
-<?php session_start();?>
-<html>
-<body>
-<form method="post" action="./confirm_update.php">
-<?php
+<?php session_start();
+echo '<html>';
+echo '<script type="text/javascript" src="script.js"></script>';
+echo '<body>';
+echo '<form name="edit" method="post" action="./confirm_update.php" onSubmit="return checkInput()">';
 require_once 'definition.php';
 
 $s = mysql_connect("localhost", "root") or die("failed");
@@ -97,8 +97,8 @@ echo "</tr></table>";
 
 mysql_close($s);
 
-?>
 
-</form>
-</body>
-</html>
+echo '</form>';
+echo '</body>';
+echo '</html>';
+?>

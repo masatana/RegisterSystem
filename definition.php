@@ -61,6 +61,7 @@ class Member {
         if ($this->name_uji === '') $invalid_list[] = 'name';
         if ($this->name_na === '') $invalid_list[] = 'name';
         if ($this->course_name == array()) $invalid_list[] = "course";
+        if (!checkdate($this->birth_year, $this->birth_month, $this->birth_day)) $invalid_list[] = 'birth';
         return $invalid_list;
     }
     function getAge() {
